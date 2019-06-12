@@ -108,7 +108,6 @@ class Admin extends Component {
               <div>Something</div>
               <br/>
               <div>Something</div>
-              Ant Design ©2018 Created by Ant UED
               <br/>
               <div>Something</div>
               <br/>

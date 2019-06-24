@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import { Table, Input, Button, Icon, Popconfirm } from "antd";
+import { Table, Input, Button, Icon, Popconfirm, Skeleton } from "antd";
 import Highlighter from "react-highlight-words";
+import axios from 'axios';
+
+
 
 const data = [
   {
@@ -48,6 +51,12 @@ class Users extends Component {
   state = {
     searchText: ""
   };
+  componentDidMount() {
+    axios.get("https://api.pulsespace.com/users/all").then(res => {
+        console.log("users received in response is", res.data);
+        this.setState({users:res.data});
+    });
+}
   getColumnSearchProps = dataIndex => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -160,13 +169,13 @@ class Users extends Component {
         width: "30%",
         ...this.getColumnSearchProps("email")
       },
-      {
-        title: "Number of Reviews",
-        dataIndex: "totalreviews",
-        key: "reviews",
-        width: "5%"
-        // ...this.getColumnSearchProps('age'),
-      },
+      // {
+      //   title: "Number of Reviews",
+      //   dataIndex: "totalreviews",
+      //   key: "reviews",
+      //   width: "5%"
+      //   // ...this.getColumnSearchProps('age'),
+      // },
       {
         title: "Actions",
         dataIndex: "id",
@@ -192,7 +201,7 @@ class Users extends Component {
                   icon="edit"
                   onClick={event => this.handleEdit(event, record)}
               /> */}
-          { record.active && (
+          { record.is_active && (
             <div
               onClick={() => {
                 this.toggleUser(record.id);
@@ -203,7 +212,7 @@ class Users extends Component {
             ) 
           
         }
-        {!record.active &&  ( <div  onClick={(event) => {
+        {!record.is_active &&  ( <div  onClick={(event) => {
                 this.toggleUser(event,record.id);
               }}>Enable</div>)}
 
@@ -213,12 +222,13 @@ class Users extends Component {
     ];
     return (
       <div>
-        <Table
+        {this.state.users ? <Table
           rowSelection={rowSelection}
           columns={columns}
-          dataSource={data}
-        />
-        ,
+          dataSource={this.state.users}
+        /> : <Skeleton/>}
+        
+        
       </div>
     );
   }

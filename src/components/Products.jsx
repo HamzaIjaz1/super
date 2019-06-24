@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import { Table, Input, Button, Icon, Popconfirm, Skeleton, message } from "antd";
+import { Table, Input, Button, Icon, Skeleton, message } from "antd";
 import Highlighter from "react-highlight-words";
 import axios from "axios";
 
-class Users extends Component {
+class Products extends Component {
   state = {
     searchText: ""
   };
   componentDidMount() {
-    axios.get("https://api.pulsespace.com/users/all").then(res => {
-      console.log("users received in response is", res.data);
-      this.setState({ users: res.data });
+    axios.get("https://api.pulsespace.com/products/all").then(res => {
+      console.log("products received in response is", res.data);
+      this.setState({ products: res.data });
     });
   }
   getColumnSearchProps = dataIndex => ({
@@ -86,45 +86,45 @@ class Users extends Component {
 
   toggleUser(id) {
     // event.preventDefault();
-    console.log("Disabling user", id);
+    console.log("Disabling product", id);
     axios
     .post(
-        "https://api.pulsespace.com/users/inactive/" + id
+        "https://api.pulsespace.com/products/inactive/" + id
     )
     .then(res => {
         // this.setState({ faqs: faqsdata });
-        var data=this.state.users;
-        message.success("User Disabled");
-        const index=this.state.users.findIndex(x => x.id === id);
+        var data=this.state.products;
+        message.success("product Disabled");
+        const index=this.state.products.findIndex(x => x.id === id);
 
         data[index].is_active=0;
-        this.setState({users:data});
+        this.setState({products:data});
 
     })
     .catch(err => {
-        console.log("Error occured while disabling user");
+        console.log("Error occured while disabling product");
         throw err;
     });
   }
   disableUser(id) {
     // event.preventDefault();
-    console.log("Enabling user", id);
+    console.log("Enabling shop", id);
     axios
     .post(
-        "https://api.pulsespace.com/users/active/" + id
+        "https://api.pulsespace.com/products/active/" + id
     )
     .then(res => {
         // this.setState({ faqs: faqsdata });
-        var data=this.state.users;
-        message.success("User Enabled");
-        const index=this.state.users.findIndex(x => x.id === id);
+        var data=this.state.products;
+        message.success("product Enabled");
+        const index=this.state.products.findIndex(x => x.id === id);
 
         data[index].is_active=1;
-        this.setState({users:data});
+        this.setState({products:data});
 
     })
     .catch(err => {
-        console.log("Error occured while Enabling user");
+        console.log("Error occured while Enabling product");
         throw err;
     });
   }
@@ -159,22 +159,18 @@ class Users extends Component {
         ...this.getColumnSearchProps("name")
       },
       {
-        title: "Email",
+        title: "Shop",
         dataIndex: "email",
         key: "email",
-        width: "30%",
+        width: "20%",
         ...this.getColumnSearchProps("email")
       },
       {
-        title: "Number of Reviews",
-        dataIndex: "reviews",
+        title: "Average Rating",
+        dataIndex: "contact",
         key: "reviews",
-        width: "5%",
-        render: (text, record) => (
-          <div>
-            {record.length}
-          </div>
-        )
+        width: "10%"
+        
 
         // ...this.getColumnSearchProps('age'),
       },
@@ -184,25 +180,7 @@ class Users extends Component {
         key: "actions",
         render: (text, record) => (
           <div>
-            {/* <Popconfirm
-                  title="Are you sure delete this product?"
-                  onConfirm={event =>
-                      this.handleDelete(event, record)
-                  }
-                  onCancel={this.popCancel}
-                  okText="Yes"
-                  cancelText="No"
-              >
-                  <Button
-                      type="danger"
-                      icon="delete"
-                      style={{ margin: 10 }}
-                  />
-              </Popconfirm>
-              <Button
-                  icon="edit"
-                  onClick={event => this.handleEdit(event, record)}
-              /> */}
+        
             {record.is_active ? (
               <Button
                 onClick={() => {
@@ -227,11 +205,11 @@ class Users extends Component {
     ];
     return (
       <div>
-        {this.state.users ? (
+        {this.state.products ? (
           <Table
             rowSelection={rowSelection}
             columns={columns}
-            dataSource={this.state.users}
+            dataSource={this.state.products}
           />
         ) : (
           <Skeleton />
@@ -241,4 +219,4 @@ class Users extends Component {
   }
 }
 
-export default Users;
+export default Products;

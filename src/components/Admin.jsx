@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Layout, Menu, Icon, Button } from "antd";
 import Graph from './Graph';
 import Users from './users';
+import Products from './Products';
+import Stores from './stores';
 import logo from "../images/logo.png";
 
 
@@ -49,7 +51,7 @@ class Admin extends Component {
               theme="dark"
               inlineCollapsed={this.state.collapsed}
             >
-              <Menu.Item key="1">
+              {/* <Menu.Item key="1">
                 <Icon type="pie-chart" />
                 <span onClick={()=>{this.setState({rendering:'graph'})}}> Activities</span>
               </Menu.Item>
@@ -63,23 +65,26 @@ class Admin extends Component {
                   </span>
                 }
               >
-                <Menu.Item key="2">New Products</Menu.Item>
-                <Menu.Item key="3">New Stores</Menu.Item>
-                <Menu.Item key="4">New Reviews</Menu.Item>
-              </SubMenu>
-              <Menu.Item key="5">
+               
+              </SubMenu> */}
+              <Menu.Item key="2" onClick={()=>{this.setState({rendering:'users'})}}>
                 <Icon type="desktop" />
-                <span onClick={()=>{this.setState({rendering:'users'})}}>Users</span>
+                <span >Users</span>
               </Menu.Item>
-              <Menu.Item key="6" onClick={this.handlestores}>
+              <Menu.Item key="3" onClick={()=>{this.setState({rendering:'stores'})}}>
                 <Icon type="inbox" />
                 <span>Stores</span>
               </Menu.Item>
 
-              <Menu.Item key="7">
+              <Menu.Item key="4" onClick={()=>{this.setState({rendering:'products'})}}>
+                <Icon type="inbox" />
+                <span>Products</span>
+              </Menu.Item>
+
+              {/* <Menu.Item key="4">
                 <Icon type="inbox" />
                 <span>Notifications</span>
-              </Menu.Item>
+              </Menu.Item> */}
             </Menu>
           </Sider>
           <Layout>
@@ -93,7 +98,12 @@ class Admin extends Component {
               >
                 Main content to be shown here
                 {this.state.rendering === 'graph' && <Graph/>}
-                {this.state.rendering == 'users' && <Users/>}
+                {this.state.rendering === 'users' && <Users/>}
+                {this.state.rendering === 'stores' && <Stores/>}
+                {this.state.rendering === 'products' && <Products/>}
+
+
+
 
               </div>
             </Content>

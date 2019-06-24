@@ -3,14 +3,14 @@ import { Table, Input, Button, Icon, Popconfirm, Skeleton, message } from "antd"
 import Highlighter from "react-highlight-words";
 import axios from "axios";
 
-class Users extends Component {
+class Stores extends Component {
   state = {
     searchText: ""
   };
   componentDidMount() {
-    axios.get("https://api.pulsespace.com/users/all").then(res => {
-      console.log("users received in response is", res.data);
-      this.setState({ users: res.data });
+    axios.get("https://api.pulsespace.com/shops/all").then(res => {
+      console.log("Stores received in response is", res.data);
+      this.setState({ Stores: res.data });
     });
   }
   getColumnSearchProps = dataIndex => ({
@@ -86,41 +86,41 @@ class Users extends Component {
 
   toggleUser(id) {
     // event.preventDefault();
-    console.log("Disabling user", id);
+    console.log("Disabling shop", id);
     axios
     .post(
-        "https://api.pulsespace.com/users/inactive/" + id
+        "https://api.pulsespace.com/shops/inactive/" + id
     )
     .then(res => {
         // this.setState({ faqs: faqsdata });
-        var data=this.state.users;
+        var data=this.state.Stores;
         message.success("User Disabled");
-        const index=this.state.users.findIndex(x => x.id === id);
+        const index=this.state.Stores.findIndex(x => x.id === id);
 
         data[index].is_active=0;
-        this.setState({users:data});
+        this.setState({Stores:data});
 
     })
     .catch(err => {
-        console.log("Error occured while disabling user");
+        console.log("Error occured while disabling shop");
         throw err;
     });
   }
   disableUser(id) {
     // event.preventDefault();
-    console.log("Enabling user", id);
+    console.log("Enabling shop", id);
     axios
     .post(
-        "https://api.pulsespace.com/users/active/" + id
+        "https://api.pulsespace.com/shop/active/" + id
     )
     .then(res => {
         // this.setState({ faqs: faqsdata });
-        var data=this.state.users;
+        var data=this.state.Stores;
         message.success("User Enabled");
-        const index=this.state.users.findIndex(x => x.id === id);
+        const index=this.state.Stores.findIndex(x => x.id === id);
 
         data[index].is_active=1;
-        this.setState({users:data});
+        this.setState({Stores:data});
 
     })
     .catch(err => {
@@ -166,15 +166,11 @@ class Users extends Component {
         ...this.getColumnSearchProps("email")
       },
       {
-        title: "Number of Reviews",
-        dataIndex: "reviews",
+        title: "Contact",
+        dataIndex: "contact",
         key: "reviews",
-        width: "5%",
-        render: (text, record) => (
-          <div>
-            {record.length}
-          </div>
-        )
+        width: "10%"
+        
 
         // ...this.getColumnSearchProps('age'),
       },
@@ -227,11 +223,11 @@ class Users extends Component {
     ];
     return (
       <div>
-        {this.state.users ? (
+        {this.state.Stores ? (
           <Table
             rowSelection={rowSelection}
             columns={columns}
-            dataSource={this.state.users}
+            dataSource={this.state.Stores}
           />
         ) : (
           <Skeleton />
@@ -241,4 +237,4 @@ class Users extends Component {
   }
 }
 
-export default Users;
+export default Stores;

@@ -2,31 +2,56 @@ import React, { Component } from "react";
 import { Layout, Menu, Icon, Button } from "antd";
 import Graph from './Graph';
 import Users from './users';
+import Login from './Login';
 import Products from './Products';
 import Stores from './stores';
 import logo from "../images/logo.png";
-
-
-
+import axios from 'axios';
 import MenuItem from "antd/lib/menu/MenuItem";
+
+import Cookies from "universal-cookie";
+
+const host = window.location.hostname;
+const myDomain = host.substring(host.lastIndexOf("."));
+
+const cookies = new Cookies();
 
 class Admin extends Component {
   state = {
     collapsed: false,
-    rendering:''
+    rendering:'',
+    logged:''
   };
   onCollapse = collapsed => {
     console.log(collapsed);
     this.setState({ collapsed });
   };
 
+  componentDidMount (){
+    axios.get("https://api.pulsespace.com/user").then(res => {
+      console.log("user received in response is", res.data);
+
+      if (res.data.id) {
+        console.log('Logged in User found inside admin.jsx is', res.data);
+
+        this.setState({ logged: true });
+
+      } else {
+          this.setState({ logged: false });
+      }
+  });
+  }
+
+  handleLogin = ()=>{
+    this.setState({logged:true});
+  }
   render() {
     const { Header, Content, Footer, Sider } = Layout;
     const SubMenu = Menu.SubMenu;
 
     return (
       <div>
-        <Layout style={{ minHeight: '100%'}}>
+        {this.state.logged ? (<Layout style={{ minHeight: '100%'}}>
           <Sider
             breakpoint="lg"
             collapsedWidth="0"
@@ -124,8 +149,9 @@ class Admin extends Component {
               <div>Something</div>
             </Footer>
           </Layout>
-        </Layout>
-        ,
+        </Layout>): <Login changeState={this.handleLogin}/>}
+        
+        
       </div>
     );
   }

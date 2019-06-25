@@ -37,7 +37,7 @@ class Admin extends Component {
         this.setState({ logged: true });
 
       } else {
-          this.setState({ logged: false });
+          // this.setState({ logged: false });
       }
   });
   }

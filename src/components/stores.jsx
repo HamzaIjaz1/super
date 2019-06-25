@@ -210,7 +210,7 @@ class Stores extends Component {
             ) : (
               <Button
                 onClick={event => {
-                  this.disableUser(event, record.id);
+                  this.disableUser(record.id);
                 }}
               >
                 Enable

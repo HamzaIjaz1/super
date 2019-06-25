@@ -167,12 +167,12 @@ class Users extends Component {
       },
       {
         title: "Number of Reviews",
-        dataIndex: "reviews",
+        // dataIndex: "reviews",
         key: "reviews",
         width: "5%",
         render: (text, record) => (
           <div>
-            {record.length}
+            {record.reviews.length}
           </div>
         )
 
@@ -214,7 +214,7 @@ class Users extends Component {
             ) : (
               <Button
                 onClick={event => {
-                  this.disableUser(event, record.id);
+                  this.disableUser( record.id);
                 }}
               >
                 Enable

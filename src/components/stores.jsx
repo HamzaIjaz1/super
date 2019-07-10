@@ -159,46 +159,17 @@ class Stores extends Component {
         ...this.getColumnSearchProps("name")
       },
       {
-        title: "Email",
-        dataIndex: "email",
-        key: "email",
-        width: "30%",
-        ...this.getColumnSearchProps("email")
-      },
-      {
         title: "Contact",
         dataIndex: "contact",
         key: "reviews",
         width: "10%"
-        
-
-        // ...this.getColumnSearchProps('age'),
-      },
+              },
       {
         title: "Actions",
         dataIndex: "id",
         key: "actions",
         render: (text, record) => (
           <div>
-            {/* <Popconfirm
-                  title="Are you sure delete this product?"
-                  onConfirm={event =>
-                      this.handleDelete(event, record)
-                  }
-                  onCancel={this.popCancel}
-                  okText="Yes"
-                  cancelText="No"
-              >
-                  <Button
-                      type="danger"
-                      icon="delete"
-                      style={{ margin: 10 }}
-                  />
-              </Popconfirm>
-              <Button
-                  icon="edit"
-                  onClick={event => this.handleEdit(event, record)}
-              /> */}
             {record.is_active ? (
               <Button
                 onClick={() => {

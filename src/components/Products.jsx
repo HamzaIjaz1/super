@@ -158,22 +158,20 @@ class Products extends Component {
         width: "20%",
         ...this.getColumnSearchProps("name")
       },
-      {
-        title: "Shop",
-        dataIndex: "email",
-        key: "email",
-        width: "20%",
-        ...this.getColumnSearchProps("email")
-      },
-      {
-        title: "Average Rating",
-        dataIndex: "contact",
-        key: "reviews",
-        width: "10%"
+      // {
+      //   title: "Shop",
+      //   dataIndex: "email",
+      //   key: "email",
+      //   width: "20%",
+      //   ...this.getColumnSearchProps("email")
+      // },
+      // {
+      //   title: "Average Rating",
+      //   dataIndex: "contact",
+      //   key: "reviews",
+      //   width: "10%"
         
-
-        // ...this.getColumnSearchProps('age'),
-      },
+      // },
       {
         title: "Actions",
         dataIndex: "id",
